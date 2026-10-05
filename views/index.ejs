@@ -4,16 +4,51 @@
   <body>
     <%- include("partials/nav") %>
     <main>
+
       <div class="hero">
-        <h1>Welcome to Board Gamania</h1>
-        <p>Your ultimate destination for discovering and managing fantastic board games!</p>
+        <h1>Welcome to Alex's Private Club</h1>
+        <p>Feel free to join our club!</p>
       </div>
-      <div class="all-products">
-        <h2><a href="/search">All Products</a></h2>
+
+      <% if(currentUser && (!currentUser.admin_status || !currentUser.member_status)) {%>
+        <div>
+          <a href="/auth/upgrade">Upgrade your status</a>
+        </div>
+      <% } %>
+
+      <div class="message-cards-container">
+        <% for (let message of MESSAGES) { %>
+          <div class="message-card">
+              <div class="message-details">
+                <p>Message by: <%= (currentUser && (currentUser.member_status || currentUser.admin_status)) ? message.full_name : "Anonymous" %></p>
+                <p>Date: <%= (currentUser && (currentUser.member_status || currentUser.admin_status)) ? message.date.toLocaleDateString() : "••••-••-••" %></p>
+              </div>
+            <p class="message"><%= message.message %> </p>
+          </div>
+          <% if(currentUser && currentUser.admin_status) {%>
+            <div class="delete-form-container">
+              <form action="/messages/<%= message.message_id %>" method="POST">
+                <input type="hidden" name="message_id" value="<%= message.message_id %>">
+                <button type="submit">Delete</button>
+              </form>
+            </div>
+          <% } %>
+        <% } %>
       </div>
-      <div class="all-categories">
-        <h2><a href="/categories">All Categories</a></h2>
+
+      <div class="message-form-container">
+        <% if(currentUser) {%>
+        <div class="message-form">
+          <form action="/messages" method="POST">
+            <label for="message">Leave a message: </label>
+            <textarea class="form-input" id="message" name="message" rows="4" cols="50" placeholder="Please enter your message here..." required><%- locals.LASTPARAMS?.message || "" %></textarea>
+            <button type="submit">Send</button>
+          </form>
+        <%- include("partials/errors") %>
+        </div>
+      <% } %>
       </div>
+
     </main>
     <%- include("partials/footer") %>
   </body>
