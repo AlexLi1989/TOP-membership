@@ -1,0 +1,19 @@
+<nav>
+  <div class="logo-container">
+    <a href="/"><img src="/assets/logo.svg" alt="logo" /></a>
+    <a href="/">Alex's Private Club</a>
+  </div>
+  <% if(!currentUser) { %>
+  <div class="not-logged-nav-links">
+    <a href="/auth/signup">Sign Up</a>
+    <a href="/auth/login">Log In</a>
+  </div>
+  <% } %>
+  <% if(currentUser) { %>
+  <div class="logged-nav-links">
+    <form action="/auth/logout" method="POST">
+      <button type="submit">Log Out</button>
+    </form>
+  </div>
+  <% } %>
+</nav>

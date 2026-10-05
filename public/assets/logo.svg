@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Private club crest</title>
+  <desc id="desc">A simplified navy shield outlined in antique gold, with a gold compass star above an arched doorway.</desc>
+  <path d="M256 34c57 27 111 44 168 52v151c0 102-70 178-168 241C158 415 88 339 88 237V86c57-8 111-25 168-52Z" fill="#10264B" stroke="#D9AE54" stroke-width="10" stroke-linejoin="round"/>
+  <path d="m256 98 10 25 25 10-25 10-10 25-10-25-25-10 25-10 10-25Z" fill="#E2B95F"/>
+  <path d="M190 354v-69a66 66 0 0 1 132 0v69" fill="none" stroke="#E2B95F" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M178 365h156" fill="none" stroke="#E2B95F" stroke-width="12" stroke-linecap="round"/>
+</svg>

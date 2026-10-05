@@ -1,0 +1,32 @@
+{
+  "name": "membership",
+  "version": "1.0.0",
+  "description": "- This project is a backend practice for building private club membership app. - Nav bar should contain logo directing to index, links to log in and sign up. - Index page should render all messages in database,messages will show names and dates only if user has membership status, logged in users will be able to leave new message on the right side, admin will be able to delete messages. Under index title when logged in, there should be a button prompting for passphrase input to upgrade user status, to member or admin. - log in page should contain a form with fields of: email, password and submit button.There should be a cta encouraging registration. - sign up page should have fields of user first name, last name, email, password, confirm password and submit button.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexLi1989/TOP-membership.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/AlexLi1989/TOP-membership/issues"
+  },
+  "homepage": "https://github.com/AlexLi1989/TOP-membership#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^18.0.5",
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "express-validator": "^7.3.2",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "pg": "^8.23.1"
+  }
+}
