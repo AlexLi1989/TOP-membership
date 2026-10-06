@@ -11,12 +11,12 @@
       </div>
 
       <% if(currentUser && (!currentUser.admin_status || !currentUser.member_status)) {%>
-        <div>
+        <div class="upgrade-prompt">
           <a href="/auth/upgrade">Upgrade your status</a>
         </div>
       <% } %>
-
-      <div class="message-cards-container">
+      <div class="index-grid-container">
+        <div class="message-cards-container">
         <% for (let message of MESSAGES) { %>
           <div class="message-card">
               <div class="message-details">
@@ -34,9 +34,9 @@
             </div>
           <% } %>
         <% } %>
-      </div>
+        </div>
 
-      <div class="message-form-container">
+        <div class="message-form-container">
         <% if(currentUser) {%>
         <div class="message-form">
           <form action="/messages" method="POST">
@@ -46,9 +46,9 @@
           </form>
         <%- include("partials/errors") %>
         </div>
-      <% } %>
+        <% } %>
       </div>
-
+      </div>
     </main>
     <%- include("partials/footer") %>
   </body>

@@ -13,9 +13,12 @@
             <input type="text" class="form-control" id="email" name="email" required>
           </div>
 
-          <div class="form-group">
+          <div class="form-group password-wrapper">
             <label for="password">Password: </label>
-            <input type="password" class="form-control" id="password" name="password" required>
+            <div class="input-with-eye-icon">
+              <input type="password" class="form-control" id="password" name="password" required>
+              <button type="button" id="togglePassword" class="toggle-password-btn">👁️</button>
+            </div>
           </div>
 
           <button type="submit">Login</button>
@@ -30,4 +33,5 @@
     </main>
     <%- include("partials/footer") %>
   </body>
+  <script src="/js/togglePassword.js" defer></script>
 </html>

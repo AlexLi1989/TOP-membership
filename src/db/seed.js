@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS users(
   first_name VARCHAR(50) NOT NULL,
   last_name VARCHAR(50) NOT NULL,
   email CITEXT NOT NULL UNIQUE,
-  CONSTRAINT chk_email_format CHECK (email ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$'),
+  CONSTRAINT chk_email_format CHECK (email ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'),
   password VARCHAR(255) NOT NULL,
   member_status BOOLEAN NOT NULL DEFAULT false,
   admin_status BOOLEAN NOT NULL DEFAULT false
