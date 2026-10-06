@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("partials/head") %>
+  <body>
+    <%- include("partials/nav") %>
+    <main>
+      <div class="upgrade-container">
+        <h2>Let's upgrade your account!</h2>
+        <p>Hint: Passphrase for member status is a EASY 4 digits password. No hints for admin status though.</p>
+        <form action="/auth/upgrade" method="post">
+
+          <div class="form-group">
+            <label for="passphrase">Passphrase: </label>
+            <input type="text" class="form-control" id="passphrase" name="passphrase" required>
+          </div>
+
+          <button type="submit">Upgrade!!!</button>
+        </form>
+        <%- include("partials/errors") %>
+      </div>
+    </main>
+    <%- include("partials/footer") %>
+  </body>
+</html>

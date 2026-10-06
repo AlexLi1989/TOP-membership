@@ -1,5 +1,12 @@
 const { body, validationResult, matchedData } = require("express-validator");
-const { findEmail, createUser } = require("../models/userModel");
+const {
+  findEmail,
+  createUser,
+  upgradeUserMember,
+  upgradeUserAdmin,
+} = require("../models/userModel");
+const passport = require("passport");
+const bcrypt = require("bcryptjs");
 
 //validator
 const nameLengthErr = "Must be between 1 and 50 characters.";
@@ -42,7 +49,7 @@ const validateUser = [
     .matches(/[!@#$%^&*(),.?":{}|<>_+-=]/)
     .withMessage("Must contain at least one special character.")
     .escape(),
-  body("confirm_password").custom((value, req) => {
+  body("confirm_password").custom((value, { req }) => {
     if (value != req.body.password) {
       throw new Error("Password does not match.");
     }
@@ -64,9 +71,20 @@ const userCreatePost = [
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        return res.status;
+        return res.status(400).render("signup", {
+          TITLE: "Alex's Private Club - Sign Up",
+          ERRORS: errors.array(),
+          LASTPARAMS: req.body,
+        });
       }
-    } catch (error) {}
+      const newUser = matchedData(req);
+      newUser.password = await bcrypt.hash(req.body.password, 10);
+      delete newUser.confirm_password;
+      await createUser(newUser);
+      res.redirect("/");
+    } catch (error) {
+      next(error);
+    }
   },
 ];
 
@@ -78,16 +96,54 @@ function userLoginGet(req, res, next) {
 }
 
 //login post
+const userLoginPost = passport.authenticate("local", {
+  successRedirect: "/",
+  failureRedirect: "/login",
+  failureMessage: true,
+});
 
 //logout post
-
+function userLogoutPost(req, res, next) {
+  req.logout((err) => {
+    if (err) {
+      next(err);
+    }
+    res.redirect("/");
+  });
+}
 //upgrade get
-function userLoginGet(req, res, next) {
+function userUpgradeGet(req, res, next) {
   res.render("upgrade", {
     TITLE: "Alex's Private Club - Upgrade",
   });
 }
 
 //upgrade post
+async function userUpgradePost(req, res, next) {
+  try {
+    if (req.body.passphrase === process.env.MEMBER_SECRET_PASSWORD) {
+      await upgradeUserMember(req.user.user_id);
+      res.redirect("/");
+    } else if (req.body.passphrase === process.env.ADMIN_SECRET_PASSWORD) {
+      await upgradeUserAdmin(req.user.user_id);
+      res.redirect("/");
+    } else {
+      return res.status(400).render("upgrade", {
+        TITLE: "Alex's Private Club - Upgrade",
+        ERRORS: [{ msg: "Invalid passphrase." }],
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+}
 
-module.exports = {};
+module.exports = {
+  userCreateGet,
+  userCreatePost,
+  userLoginGet,
+  userLoginPost,
+  userLogoutPost,
+  userUpgradeGet,
+  userUpgradePost,
+};

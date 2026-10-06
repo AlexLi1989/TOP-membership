@@ -5,3 +5,10 @@
     <% }); %>
   </ul>
 <% } %>
+<% if(locals.loginErrors && loginErrors.length > 0) { %>
+  <ul class="error-list">
+    <% loginErrors.forEach(function(err) { %>
+      <li><%= err %></li>
+    <% }); %>
+  </ul>
+<% } %>
