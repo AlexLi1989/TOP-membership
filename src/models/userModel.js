@@ -11,10 +11,11 @@ async function findEmail({ email }) {
 //create user
 async function createUser(newUser) {
   const { first_name, last_name, email, password } = newUser;
-  await pool.query(
-    "INSERT INTO users(first_name, last_name, email, password) VALUES ($1, $2, $3, $4)",
+  const { rows } = await pool.query(
+    "INSERT INTO users(first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURNING *",
     [first_name, last_name, email, password],
   );
+  return rows[0];
 }
 
 //upgrade user member

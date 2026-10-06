@@ -37,6 +37,13 @@ const authRouter = require("./routes/authRouter");
 app.use("/", indexRouter);
 app.use("/auth", authRouter);
 
+//catching 404 route
+app.use((req, res, next) => {
+  const error = new Error("The requested page was not found.");
+  error.status = 404;
+  next(error);
+});
+
 //error route
 const errorHandler = require("./middlewares/errorHandler");
 app.use(errorHandler);

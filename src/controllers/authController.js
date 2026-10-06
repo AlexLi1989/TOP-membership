@@ -80,8 +80,13 @@ const userCreatePost = [
       const newUser = matchedData(req);
       newUser.password = await bcrypt.hash(req.body.password, 10);
       delete newUser.confirm_password;
-      await createUser(newUser);
-      res.redirect("/");
+      const dbUser = await createUser(newUser);
+      req.login(dbUser, (err) => {
+        if (err) {
+          return next(err);
+        }
+        return res.redirect("/");
+      });
     } catch (error) {
       next(error);
     }
@@ -106,9 +111,9 @@ const userLoginPost = passport.authenticate("local", {
 function userLogoutPost(req, res, next) {
   req.logout((err) => {
     if (err) {
-      next(err);
+      return next(err);
     }
-    res.redirect("/");
+    return res.redirect("/");
   });
 }
 //upgrade get
