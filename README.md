@@ -5,7 +5,7 @@
 - Index page should render all messages in database,messages will show names and dates only if user has membership status, logged in users will be able to leave new message on the right side, admin will be able to delete messages. Under index title when logged in, there should be a link to upgrade page.
 - Upgrade page should contain a form for passphrase input to upgrade user status, to member or admin.
 - log in page should contain a form with fields of: email, password and submit button.There should be a cta encouraging registration.
-- sign up page should have fields of user first name, last name, email, password, confirm password and submit button.
+- sign up page should have fields of user first name, last name, email, password, confirm password and submit button. Password should be at least 8 characters long and should contain at least one uppercase letter, one lowercase letter, one number and one special character.
 
 ## Data base schema
 

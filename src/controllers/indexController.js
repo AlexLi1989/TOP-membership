@@ -31,15 +31,6 @@ const messageCreatePost = [
   async (req, res, next) => {
     try {
       const messages = await getMessages();
-      //check if user is logged in
-      if (!req.user) {
-        return res.status(401).render("index", {
-          TITLE: "Alex's Private Club - Home",
-          MESSAGES: messages,
-          ERRORS: [{ msg: "You must be logged in to leave a message." }],
-          LASTPARAMS: req.body,
-        });
-      }
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).render("index", {
@@ -61,12 +52,6 @@ const messageCreatePost = [
 
 async function messageDeletePost(req, res, next) {
   try {
-    //check if user is an admin
-    if (!req.user || !req.user.admin_status) {
-      const error = new Error("Forbidden");
-      error.status = 403;
-      throw error;
-    }
     const message_id = req.params.id;
     await deleteMessage(message_id);
     res.redirect("/");
