@@ -316,7 +316,34 @@ form button[type="submit"]:active {
   transform: scale(0.98);
 }
 
-/* 註冊引導區塊 (CTA) */
+.input-with-eye-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-password-btn {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  padding: 0.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.toggle-password-btn:hover {
+  color: var(--accent-gold);
+}
+
+.input-with-icon .form-control {
+  padding-right: 2.5rem;
+}
+
 .cta-container {
   text-align: center;
   margin-top: 1.5rem;

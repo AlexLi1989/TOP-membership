@@ -36,8 +36,8 @@
         <% } %>
         </div>
 
-        <div class="message-form-container">
         <% if(currentUser) {%>
+        <div class="message-form-container">
         <div class="message-form">
           <form action="/messages" method="POST">
             <label for="message">Leave a message: </label>
@@ -46,8 +46,8 @@
           </form>
         <%- include("partials/errors") %>
         </div>
-        <% } %>
       </div>
+      <% } %>
       </div>
     </main>
     <%- include("partials/footer") %>
