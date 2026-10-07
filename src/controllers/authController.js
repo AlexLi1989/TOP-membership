@@ -81,12 +81,20 @@ const userCreatePost = [
       newUser.password = await bcrypt.hash(req.body.password, 10);
       delete newUser.confirm_password;
       const dbUser = await createUser(newUser);
-      req.login(dbUser, (err) => {
-        if (err) {
-          return next(err);
-        }
-        return res.redirect("/");
+      //encapsulate login and session.save in promises to allow render redirects user after auto login
+      await new Promise((resolve, reject) => {
+        req.login(dbUser, (err) => {
+          if (err) return reject(err);
+          resolve();
+        });
       });
+      await new Promise((resolve, reject) => {
+        req.session.save((err) => {
+          if (err) return reject(err);
+          resolve();
+        });
+      });
+      return res.redirect("/");
     } catch (error) {
       next(error);
     }
